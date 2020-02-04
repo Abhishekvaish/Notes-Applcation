@@ -2,9 +2,11 @@ package com.example.notes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Application;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -83,8 +85,22 @@ public class addNotes extends AppCompatActivity {
                 break;
             case R.id.delete:
                 if(getIntent().getBooleanExtra("FromList",false))
-                    deleteFile();
-                finish();
+                {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                    dialog.setTitle("Delete current File ");
+                    dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            deleteFile();
+                            finish();
+                        }
+                    });
+                    dialog.setNegativeButton("No",null);
+                    dialog.show();
+
+                }
+
+
                 break;
             case R.id.save:
                 if(edData.getText().toString().trim().isEmpty())
